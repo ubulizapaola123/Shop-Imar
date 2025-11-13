@@ -5,7 +5,7 @@ import { LeadSourcesChart } from "@/components/LeadSourcesChart";
 import { ShopsTable } from "@/components/ShopsTable";
 import { Store, DollarSign, ShoppingCart, TrendingUp } from "lucide-react";
 
-const Index = () => {
+export default function Home() {
   return (
     <AdminLayout>
       <div className="p-8 space-y-6">
@@ -56,6 +56,5 @@ const Index = () => {
       </div>
     </AdminLayout>
   );
-};
+}
 
-export default Index;

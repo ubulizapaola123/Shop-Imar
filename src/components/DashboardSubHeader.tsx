@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 
 export function DashboardSubHeader() {
   return (
-    <div className="border-b border-border bg-card px-8 py-4">
+    <div className=" border-border  px-8 py-4">
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground">Welcome admin to dashboard</p>
         

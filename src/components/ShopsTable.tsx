@@ -3,6 +3,7 @@ import { Checkbox } from "./ui/checkbox";
 import { Input } from "./ui/input";
 import { Search, Filter, MoreVertical } from "lucide-react";
 import { Badge } from "./ui/badge";
+import Image from "next/image";
 
 const shops = [
   { id: 1, name: "Fresh Market Kigali", plan: "Premium", phone: "(555) 234-5678", status: "active" },
@@ -56,7 +57,9 @@ export function ShopsTable() {
                 <td className="py-4 px-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-success/10 flex items-center justify-center">
-                      <span className="text-success font-semibold">🏪</span>
+                      <span className="text-success font-semibold">
+                        <Image src='/shop.png' alt={shop.name}  width={40} height={40} className ='w-8 h-8 rounded-full object-cover'/>
+                      </span>
                     </div>
                     <span className="text-sm font-medium">{shop.name}</span>
                   </div>

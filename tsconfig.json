@@ -1,16 +1,44 @@
 {
-  "files": [],
-  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "compilerOptions": {
+    // ✅ Silences the baseUrl deprecation warning in TS 6+
+    "ignoreDeprecations": "6.0",
+
+    // ✅ Modern target & libraries
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+
+    // ✅ Next.js / TypeScript defaults
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+
+    // ✅ Next.js plugin for IntelliSense
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+
+    // ✅ Alias configuration
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
+
+    // ✅ Relaxed checking (optional)
     "noImplicitAny": false,
     "noUnusedParameters": false,
-    "skipLibCheck": true,
-    "allowJs": true,
     "noUnusedLocals": false,
     "strictNullChecks": false
-  }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

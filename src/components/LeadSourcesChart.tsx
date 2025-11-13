@@ -1,3 +1,5 @@
+"use client";
+
 import { Card } from "./ui/card";
 import { MoreVertical } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
