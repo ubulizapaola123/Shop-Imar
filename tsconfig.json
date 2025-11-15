@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    // ✅ Silences the baseUrl deprecation warning in TS 6+
+    // ✅ Silences the baseUrl deprecation warning in TS 5+
     "ignoreDeprecations": "6.0",
 
     // ✅ Modern target & libraries

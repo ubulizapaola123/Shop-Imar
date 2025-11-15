@@ -1,6 +1,5 @@
 import { AdminLayout } from "@/components/AdminLayout";
 import { StatCard } from "@/components/StatCard";
-import { LeadSourcesChart } from "@/components/LeadSourcesChart";
 import { ShopsTable } from "@/components/ShopsTable";
 import { Store, DollarSign, ShoppingCart, TrendingUp } from "lucide-react";
 import { AdminShops } from "@/components/AdminShops";
