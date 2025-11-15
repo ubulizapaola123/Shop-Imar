@@ -6,10 +6,10 @@ import { Badge } from "./ui/badge";
 import Image from "next/image";
 
 const shops = [
-  { id: 1, name: "Fresh Market Kigali", plan: "Premium", phone: "(555) 234-5678", status: "active" },
-  { id: 2, name: "Fresh Market Kigali", plan: "Premium", phone: "(555) 887-6543", status: "pending" },
-  { id: 3, name: "Fresh Market Kigali", plan: "Premium", phone: "(555) 456-7890", status: "active" },
-  { id: 4, name: "Fresh Market Kigali", plan: "Premium", phone: "(555) 321-0987", status: "active" },
+  { id: 1, name: "Gacuriro Market Kigali", plan: "Premium", phone: "(555) 234-5678", status: "active" },
+  { id: 2, name: "Kimironko Market Kigali", plan: "Premium", phone: "(555) 887-6543", status: "pending" },
+  { id: 3, name: "Muhanga Market Kigali", plan: "Premium", phone: "(555) 456-7890", status: "active" },
+  { id: 4, name: "Huye Market Kigali", plan: "Premium", phone: "(555) 321-0987", status: "active" },
 ];
 
 export function ShopsTable() {

@@ -14,7 +14,7 @@ export function LeadSourcesChart() {
   const total = data.reduce((sum, item) => sum + item.value, 0);
   
   return (
-    <Card className="p-6">
+    <Card className="p-9">
       <div className="flex items-start justify-between mb-6">
         <h3 className="text-lg font-semibold">Lead by Sources</h3>
         <button className="p-1 hover:bg-muted rounded transition-colors">

@@ -16,21 +16,21 @@ function Payment() {
   };
 
   return (
-    <div className="space-y-6 p-2">
+    <div className="p-6 max-w-full">
       <h2 className="text-2xl font-semibold mb-2">System Settings</h2>
-      <p className="text-sm text-muted-foreground ">
+      <p className="text-sm text-muted-foreground mb-6">
         Configure system admin preferences
       </p>
 
-      <Card className="pt-7 pb-9 px-6 h-[400px] gap-4">
+      <Card className="p-6">
         <h3 className="text-lg font-semibold mb-1">Admin Information</h3>
         <p className="text-sm text-muted-foreground mb-6">
           Basic information about admin
         </p>
 
-        <div className="p-5 border rounded-md space-y-4">
+        <div className="p-6 border rounded-md space-y-6">
           <div>
-            <Label className="mb-1 block">Admin Name</Label>
+            <Label className="mb-2 block">Admin Name</Label>
             <Input
               type="text"
               value={adminName}
@@ -38,9 +38,9 @@ function Payment() {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <Label className="mb-1 block">Phone</Label>
+              <Label className="mb-2 block">Phone</Label>
               <Input
                 type="text"
                 value={phone}
@@ -48,7 +48,7 @@ function Payment() {
               />
             </div>
             <div>
-              <Label className="mb-1 block">Email</Label>
+              <Label className="mb-2 block">Email</Label>
               <Input
                 type="email"
                 value={email}
@@ -59,7 +59,7 @@ function Payment() {
 
           <Button
             onClick={handleSave}
-            className="bg-success text-white mt-4"
+            className="bg-success text-white hover:bg-success/90 mt-2"
           >
             Save Changes
           </Button>

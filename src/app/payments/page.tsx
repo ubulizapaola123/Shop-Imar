@@ -5,7 +5,7 @@ import  Payment  from "@/components/Payment";
 export default function payments(){
     return(
         <AdminLays>
-            <div>
+            <div className="bg-white">
                 <Payment/>
             </div>
         </AdminLays>

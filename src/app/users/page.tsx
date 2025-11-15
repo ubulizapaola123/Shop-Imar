@@ -1,7 +1,7 @@
 import { AdminLayout } from "@/components/AdminLayout";
 import { StatCard } from "@/components/StatCard";
 import { AdminPayment } from "@/components/AdminPayment";
-import { ShopsTable } from "@/components/ShopsTable";
+import { UsersTable } from "@/components/UsersTable";
 import { Store, DollarSign, ShoppingCart, TrendingUp } from "lucide-react";
 
 export default function payments() {
@@ -48,7 +48,7 @@ export default function payments() {
         </div>
 
         {/* Shops Table */}
-        <ShopsTable />
+        <UsersTable />
       </div>
     </AdminLayout>
   );

@@ -15,12 +15,12 @@ export function AdminLayout({ children }: AdminLayoutProps) {
   const { isCollapsed } = useSidebar();
   
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-white">
       <Sidebar />
       
       <div
         className={cn(
-          "flex flex-col bg-muted/50 min-h-screen transition-all duration-300",
+          "flex flex-col bg-white min-h-screen transition-all duration-300",
           isCollapsed ? "ml-16" : "ml-64"
         )}
       >
