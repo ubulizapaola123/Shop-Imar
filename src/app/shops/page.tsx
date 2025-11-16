@@ -3,6 +3,7 @@ import { StatCard } from "@/components/StatCard";
 import { ShopsTable } from "@/components/ShopsTable";
 import { Store, DollarSign, ShoppingCart, TrendingUp } from "lucide-react";
 import { AdminShops } from "@/components/AdminShops";
+import ShopMap from "@/components/ShopMap";
 
 export default function Home() {
   return (
@@ -46,6 +47,8 @@ export default function Home() {
             <AdminShops />
           </div>
         </div>
+
+    
 
         {/* Shops Table */}
         <ShopsTable />
