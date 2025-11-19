@@ -22,12 +22,13 @@ const shops = [
     id: 1,
     name: "Green Valley Market",
     category: "Grocery",
+    status: "Open",
     rating: 4.8,
     reviews: 234,
     address: "KN 4 Ave, Kigali",
     distance: 0.5,
     phone: "+250 788 123 456",
-    image: "/shop.png",
+    image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg",
     coordinates: [-1.9441, 30.0619] as [number, number],
     location: "Kigali"
   },
@@ -35,12 +36,13 @@ const shops = [
     id: 2,
     name: "Tech Hub Electronics",
     category: "Electronics",
+    status: "Open",
     rating: 4.6,
     reviews: 851,
     address: "KG 11 Ave, Kigali",
     distance: 1.2,
     phone: "+250 788 234 567",
-    image: "/shop.png",
+    image: "https://images.pexels.com/photos/128756/pexels-photo-128756.jpeg",
     coordinates: [-1.9503, 30.0584] as [number, number],
     location: "Kigali"
   },
@@ -48,12 +50,13 @@ const shops = [
     id: 3,
     name: "Fashion Forward Boutique",
     category: "Fashion",
+    status: "Open",
     rating: 4.9,
     reviews: 312,
     address: "KN 3 Rd, Kigali",
     distance: 0.8,
     phone: "+250 788 345 678",
-    image: "/shop.png",
+    image: "https://images.pexels.com/photos/1488463/pexels-photo-1488463.jpeg",
     coordinates: [-1.9396, 30.0644] as [number, number],
     location: "Kigali"
   },
@@ -61,12 +64,13 @@ const shops = [
     id: 4,
     name: "Home & Garden Essentials",
     category: "Home & Garden",
+    status: "Open",
     rating: 4.5,
     reviews: 560,
     address: "KG 7 Ave, Kigali",
     distance: 2.1,
     phone: "+250 788 456 789",
-    image: "/shop.png",
+    image: "https://images.pexels.com/photos/2647713/pexels-photo-2647713.jpeg",
     coordinates: [-1.9458, 30.0555] as [number, number],
     location: "Kigali"
   },
@@ -74,12 +78,13 @@ const shops = [
     id: 5,
     name: "Sports Arena",
     category: "Sports",
+    status: "Open",
     rating: 4.4,
     reviews: 98,
     address: "KG 9 Ave, Kigali",
     distance: 1.7,
     phone: "+250 788 567 890",
-    image: "/shop.png",
+    image: "https://images.pexels.com/photos/841228/pexels-photo-841228.jpeg",
     coordinates: [-1.9489, 30.0522] as [number, number],
     location: "Kigali"
   },
@@ -87,12 +92,13 @@ const shops = [
     id: 6,
     name: "Musanze Market",
     category: "Grocery",
+    status: "Open",
     rating: 4.3,
     reviews: 145,
     address: "Main St, Musanze",
     distance: 0.0,
     phone: "+250 788 678 901",
-    image: "/shop.png",
+    image: "https://images.pexels.com/photos/949223/pexels-photo-949223.jpeg",
     coordinates: [-1.5036, 29.6344] as [number, number],
     location: "Musanze"
   },
@@ -100,12 +106,13 @@ const shops = [
     id: 7,
     name: "Muhanga Central",
     category: "General",
+    status: "Open",
     rating: 4.2,
     reviews: 203,
     address: "Center St, Muhanga",
     distance: 0.0,
     phone: "+250 788 789 012",
-    image: "/shop.png",
+    image: "https://images.pexels.com/photos/3965545/pexels-photo-3965545.jpeg",
     coordinates: [-2.0833, 29.7500] as [number, number],
     location: "Muhanga"
   },
@@ -113,12 +120,13 @@ const shops = [
     id: 8,
     name: "Huye Plaza",
     category: "Shopping",
+    status: "Open",
     rating: 4.6,
     reviews: 178,
     address: "Market Rd, Huye",
     distance: 0.0,
     phone: "+250 788 890 123",
-    image: "/shop.png",
+    image: "https://images.pexels.com/photos/373892/pexels-photo-373892.jpeg",
     coordinates: [-2.6000, 29.7500] as [number, number],
     location: "Huye"
   }
@@ -201,7 +209,7 @@ export default function ShopMap() {
   }
 
   return (
-    <div className="h-[calc(100vh-120px)] flex flex-col">
+    <div className="h-[calc(100vh-140px)] flex flex-col">
       <div className="mb-4">
         <h2 className="text-2xl font-semibold mb-1">Shop Locations</h2>
         <p className="text-sm text-muted-foreground">Interactive map showing all shop locations</p>
@@ -210,28 +218,41 @@ export default function ShopMap() {
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0 h-full">
         {/* Left Panel - Shop List */}
         <div className="flex flex-col min-h-0">
-          <Card className="p-4 flex-1 flex flex-col min-h-0">
-            {/* Filter Buttons */}
-            <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
-              {locations.map((location) => (
-                <Button
-                  key={location}
-                  variant={selectedLocation === location ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedLocation(location)}
-                  className={`whitespace-nowrap ${
-                    selectedLocation === location
-                      ? "bg-success text-white hover:bg-success/90"
-                      : ""
-                  }`}
-                >
-                  {location}
-                </Button>
-              ))}
+          <Card className="p-3 flex-1 flex flex-col min-h-0">
+            {/* Locations Header + Filter Buttons */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <h3 className="text-sm font-semibold">Locations</h3>
+                  <p className="text-xs text-muted-foreground">
+                    Filter shops by city
+                  </p>
+                </div>
+                <Badge variant="outline" className="text-[10px] px-2 py-1">
+                  {filteredShops.length} shops
+                </Badge>
+              </div>
+              <div className="flex gap-2 overflow-x-auto pb-1.5">
+                {locations.map((location) => (
+                  <Button
+                    key={location}
+                    variant={selectedLocation === location ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedLocation(location)}
+                    className={`whitespace-nowrap ${
+                      selectedLocation === location
+                        ? "bg-success text-white hover:bg-success/90"
+                        : ""
+                    }`}
+                  >
+                    {location}
+                  </Button>
+                ))}
+              </div>
             </div>
 
             {/* Search */}
-            <div className="relative mb-4">
+            <div className="relative mb-3">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 placeholder="Search shops..."
@@ -242,18 +263,18 @@ export default function ShopMap() {
             </div>
 
             {/* Shop Count */}
-            <div className="text-sm text-muted-foreground mb-3">
+            <div className="text-xs text-muted-foreground mb-2">
               {filteredShops.length} shop{filteredShops.length !== 1 ? "s" : ""} found
             </div>
 
             {/* Shop List */}
-            <div className="flex-1 overflow-y-auto space-y-3 pr-2">
+            <div className="flex-1 overflow-y-auto space-y-2.5 pr-2">
               {filteredShops.map((shop) => {
                 const isActive = selectedShop?.id === shop.id;
                 return (
                 <Card
                   key={shop.id}
-                  className={`p-4 cursor-pointer transition-all hover:shadow-md ${
+                  className={`p-3 cursor-pointer transition-all hover:shadow-md ${
                     isActive
                       ? "ring-2 ring-success bg-success/10 border-success"
                       : "border-border"
@@ -261,7 +282,7 @@ export default function ShopMap() {
                   onClick={() => setSelectedShop(shop)}
                 >
                   <div className="flex gap-3">
-                    <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
                       <Image
                         src={shop.image}
                         alt={shop.name}
@@ -270,28 +291,33 @@ export default function ShopMap() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-sm mb-1 truncate">{shop.name}</h3>
-                      <Badge variant="secondary" className="text-xs mb-2">
-                        {shop.category}
-                      </Badge>
-                      <div className="flex items-center gap-1 mb-1">
+                      <h3 className="font-semibold text-[13px] mb-0.5 truncate">{shop.name}</h3>
+                      <div className="flex items-center gap-2 mb-2">
+                        <Badge className="bg-success text-white text-[10px] px-2 py-0.5 rounded-full">
+                          {shop.status}
+                        </Badge>
+                        <Badge variant="secondary" className="text-[10px] px-2 py-0.5 rounded-full">
+                          {shop.category}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center gap-1 mb-0.5">
                         <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                        <span className="text-xs font-medium">{shop.rating}</span>
-                        <span className="text-xs text-muted-foreground">
+                        <span className="text-[11px] font-medium">{shop.rating}</span>
+                        <span className="text-[11px] text-muted-foreground">
                           ({shop.reviews} reviews)
                         </span>
                       </div>
-                      <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
+                      <div className="flex items-center gap-1 text-[11px] text-muted-foreground mb-0.5">
                         <MapPin className="w-3 h-3" />
                         <span className="truncate">{shop.address}</span>
                       </div>
-                      <div className="text-xs text-muted-foreground mb-2">
+                      <div className="text-[11px] text-muted-foreground mb-1.5">
                         {shop.distance > 0 ? `${shop.distance} km away` : shop.location}
                       </div>
                       <Button
                         size="sm"
                         variant="outline"
-                        className="w-full text-xs"
+                        className="w-full text-[11px]"
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedShop(shop);
@@ -406,6 +432,80 @@ export default function ShopMap() {
                     );
                   })}
                 </MapContainer>
+              )}
+
+              {/* Selected shop details card (overlay on map) */}
+              {selectedShop && (
+                <div className="absolute bottom-6 left-6 z-[1000] max-w-sm">
+                  <Card className="p-4 shadow-xl">
+                    <div className="flex gap-3">
+                      <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                        <Image
+                          src={selectedShop.image}
+                          alt={selectedShop.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2 mb-1">
+                          <h3 className="font-semibold text-sm truncate">
+                            {selectedShop.name}
+                          </h3>
+                          <Badge className="bg-success text-white text-[10px] px-2 py-0.5">
+                            {selectedShop.status}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-1 mb-1">
+                          <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                          <span className="text-xs font-medium">{selectedShop.rating}</span>
+                          <span className="text-xs text-muted-foreground">
+                            ({selectedShop.reviews} reviews)
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
+                          <MapPin className="w-3 h-3" />
+                          <span className="truncate">{selectedShop.address}</span>
+                        </div>
+                        <div className="text-xs text-muted-foreground mb-1">
+                          {selectedShop.distance > 0
+                            ? `${selectedShop.distance} km away`
+                            : selectedShop.location}
+                        </div>
+                        <div className="text-xs text-muted-foreground mb-2">
+                          <Phone className="w-3 h-3 inline mr-1" />
+                          {selectedShop.phone}
+                        </div>
+                        <div className="flex gap-2 mt-2">
+                          <Button
+                            size="sm"
+                            className="text-xs bg-success text-white hover:bg-success/90 flex-1"
+                            onClick={() => {
+                              window.open(
+                                `https://www.google.com/maps/dir/?api=1&destination=${selectedShop.coordinates[0]},${selectedShop.coordinates[1]}`,
+                                "_blank"
+                              );
+                            }}
+                          >
+                            <Navigation className="w-3 h-3 mr-1" />
+                            Get Directions
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-xs flex-1"
+                            onClick={() => {
+                              window.location.href = `tel:${selectedShop.phone}`;
+                            }}
+                          >
+                            <Phone className="w-3 h-3 mr-1" />
+                            Call Now
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
               )}
 
               {/* Legend */}

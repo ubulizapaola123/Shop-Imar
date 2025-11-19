@@ -3,7 +3,7 @@ import { Input } from "./ui/input";
 
 export function Navbar() {
   return (
-    <header className="border-b border-border bg-card">
+    <header className="border-b border-border bg-card fi">
       <div className="flex items-center justify-between px-8 py-4">
         <h1 className="text-xl font-semibold">Dashboard</h1>
         
