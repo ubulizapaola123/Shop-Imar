@@ -12,11 +12,11 @@ interface AdminLayoutProps {
 
 export function AdminLays({ children }: AdminLayoutProps) {
   const { isCollapsed } = useSidebar();
-  
+
   return (
     <div className="min-h-screen bg-white">
       <Sidebar />
-      
+
       <div
         className={cn(
           "flex flex-col bg-white min-h-screen transition-all duration-300",
@@ -24,7 +24,7 @@ export function AdminLays({ children }: AdminLayoutProps) {
         )}
       >
         <Navbar />
-        
+
         <main className="flex-1 bg-white">
           {children}
         </main>
