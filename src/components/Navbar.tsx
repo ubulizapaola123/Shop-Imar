@@ -40,7 +40,7 @@ const notificationIcons = {
 
 const notificationColors = {
   order: "text-blue-500 bg-blue-50",
-  payment: "text-green-600 bg-green-50",
+  payment: "text-[#FF6600] bg-orange-50",
   alert: "text-orange-500 bg-orange-50",
   info: "text-gray-500 bg-gray-100",
 };
@@ -219,7 +219,7 @@ export function Navbar() {
                     {getInitials(adminName)}
                   </AvatarFallback>
                 </Avatar>
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#FF6600] border-2 border-white rounded-full" />
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">

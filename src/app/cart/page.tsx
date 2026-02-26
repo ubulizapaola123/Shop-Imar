@@ -123,8 +123,8 @@ export default function CartPage() {
             <AdminLayout>
                 <div className="p-8 flex items-center justify-center min-h-[70vh]">
                     <div className="text-center max-w-md space-y-6">
-                        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                            <CheckCircle2 className="w-10 h-10 text-green-600" />
+                        <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
+                            <CheckCircle2 className="w-10 h-10 text-[#FF6600]" />
                         </div>
                         <div>
                             <h2 className="text-2xl font-extrabold">Order Confirmed!</h2>
@@ -269,7 +269,7 @@ export default function CartPage() {
                                         <span className="font-semibold">{fmtRWF(subtotal)}</span>
                                     </div>
                                     {appliedCoupon && (
-                                        <div className="flex justify-between text-green-700">
+                                        <div className="flex justify-between text-[#FF6600]">
                                             <span>Coupon ({appliedCoupon})</span>
                                             <span>−{fmtRWF(discount)}</span>
                                         </div>
@@ -294,7 +294,7 @@ export default function CartPage() {
 
                             {/* Badges */}
                             <div className="flex flex-col gap-2 text-xs text-muted-foreground">
-                                <div className="flex items-center gap-2"><Lock size={12} className="text-green-600" /> Secure SSL-encrypted checkout</div>
+                                <div className="flex items-center gap-2"><Lock size={12} className="text-[#FF6600]" /> Secure SSL-encrypted checkout</div>
                                 <div className="flex items-center gap-2"><Truck size={12} className="text-blue-500" /> Free delivery above 500,000 RWF</div>
                                 <div className="flex items-center gap-2"><RotateCcw size={12} className="text-orange-500" /> 7-day return policy</div>
                             </div>
@@ -425,7 +425,7 @@ export default function CartPage() {
                                         };
                                         const colors: Record<PayMethod, string> = {
                                             "MTN MoMo": "bg-yellow-400", Mastercard: "bg-red-600",
-                                            Visa: "bg-blue-600", "Airtel Money": "bg-red-500", Cash: "bg-green-600",
+                                            Visa: "bg-blue-600", "Airtel Money": "bg-red-500", Cash: "bg-[#FF6600]",
                                         };
                                         const Icon = icons[m];
                                         return (
@@ -503,7 +503,7 @@ function MiniSummary({ total, items }: { total: number; items: number }) {
                 </div>
             </div>
             <div className="flex flex-col gap-1.5 text-xs text-muted-foreground pt-2 border-t border-border">
-                <div className="flex items-center gap-2"><Lock size={11} className="text-green-600" /> Secure payment</div>
+                <div className="flex items-center gap-2"><Lock size={11} className="text-[#FF6600]" /> Secure payment</div>
                 <div className="flex items-center gap-2"><Truck size={11} className="text-blue-500" /> 24–48hr delivery</div>
             </div>
         </Card>

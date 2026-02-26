@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 100 57% 46%; /* changed */
+    --primary: 24 100% 50%; /* Simba Orange #FF6600 */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 210 40% 96%;
@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 100 57% 46%; /* changed */
+    --accent: 24 100% 50%; /* Simba Orange #FF6600 */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -34,9 +34,9 @@ All colors MUST be HSL.
 
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 100 57% 46%; /* changed */
+    --ring: 24 100% 50%; /* Simba Orange */
 
-    --success: 100 57% 46%; /* changed */
+    --success: 24 100% 50%; /* Simba Orange #FF6600 */
     --success-foreground: 0 0% 100%;
     
     --warning: 38 92% 50%;
@@ -54,7 +54,7 @@ All colors MUST be HSL.
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 24 100% 50%;
   }
 
   .dark {
@@ -67,7 +67,7 @@ All colors MUST be HSL.
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 100 57% 46%; /* changed */
+    --primary: 24 100% 50%; /* Simba Orange */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 217 33% 18%;
@@ -76,7 +76,7 @@ All colors MUST be HSL.
     --muted: 217 33% 18%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 100 57% 46%; /* changed */
+    --accent: 24 100% 50%; /* Simba Orange */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 63% 31%;
@@ -84,9 +84,9 @@ All colors MUST be HSL.
 
     --border: 217 33% 18%;
     --input: 217 33% 18%;
-    --ring: 100 57% 46%; /* changed */
+    --ring: 24 100% 50%; /* Simba Orange */
     
-    --success: 100 57% 46%; /* changed */
+    --success: 24 100% 50%; /* Simba Orange */
     --success-foreground: 0 0% 100%;
     
     --warning: 38 92% 50%;
@@ -102,7 +102,7 @@ All colors MUST be HSL.
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 24 100% 50%;
   }
 }
 

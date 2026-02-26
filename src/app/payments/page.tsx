@@ -48,7 +48,7 @@ const initialTransactions: Transaction[] = [
 ];
 
 const statusConfig: Record<TxStatus, { label: string; icon: React.ElementType; classes: string }> = {
-    completed: { label: "Completed", icon: CheckCircle2, classes: "text-green-700 bg-green-100" },
+    completed: { label: "Completed", icon: CheckCircle2, classes: "text-[#FF6600] bg-orange-100" },
     pending: { label: "Pending", icon: Clock, classes: "text-orange-700 bg-orange-100" },
     failed: { label: "Failed", icon: XCircle, classes: "text-red-600 bg-red-100" },
 };
@@ -63,7 +63,7 @@ const methodColors: Record<string, string> = {
     Visa: "bg-blue-600",
     "MTN MoMo": "bg-yellow-400",
     "Airtel Money": "bg-red-500",
-    Cash: "bg-green-600",
+    Cash: "bg-[#FF6600]",
 };
 
 const fmtRWF = (n: number) => n.toLocaleString("en-RW") + " RWF";
@@ -78,7 +78,7 @@ function StatCard({
             <p className="text-2xl font-extrabold text-foreground leading-tight">{value}</p>
             {sub && <p className="text-xs text-muted-foreground mt-1">{sub}</p>}
             {trend && (
-                <div className={cn("flex items-center gap-1 mt-2 text-xs font-semibold", up ? "text-green-600" : "text-red-500")}>
+                <div className={cn("flex items-center gap-1 mt-2 text-xs font-semibold", up ? "text-[#FF6600]" : "text-red-500")}>
                     {up ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
                     {trend}
                 </div>
@@ -285,7 +285,7 @@ export default function PaymentsPage() {
                                         {m.balance !== undefined && (
                                             <div className="flex justify-between items-center pt-1 border-t border-border mt-2">
                                                 <span className="text-muted-foreground text-xs uppercase tracking-widest font-semibold">Balance</span>
-                                                <span className="font-bold text-green-700">{isMasked ? "●●●●●●" : fmtRWF(m.balance)}</span>
+                                                <span className="font-bold text-[#FF6600]">{isMasked ? "●●●●●●" : fmtRWF(m.balance)}</span>
                                             </div>
                                         )}
                                     </div>
@@ -381,7 +381,7 @@ export default function PaymentsPage() {
                                                 </td>
                                                 <td className="py-4 px-5 text-muted-foreground text-xs">{t.date}</td>
                                                 <td className="py-4 px-5">
-                                                    <span className={cn("font-bold", t.type === "credit" ? "text-green-700" : "text-red-500")}>
+                                                    <span className={cn("font-bold", t.type === "credit" ? "text-[#FF6600]" : "text-red-500")}>
                                                         {t.type === "credit" ? "+" : "−"}{fmtRWF(t.amount)}
                                                     </span>
                                                 </td>

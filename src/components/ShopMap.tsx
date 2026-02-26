@@ -16,117 +16,117 @@ const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLa
 const Marker = dynamic(() => import("react-leaflet").then((mod) => mod.Marker), { ssr: false });
 const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), { ssr: false });
 
-// Shop data with coordinates (Kigali, Rwanda)
+// Simba Supermarket branch data with coordinates (Rwanda)
 const shops = [
   {
     id: 1,
-    name: "Green Valley Market",
-    category: "Grocery",
+    name: "Simba — Kicukiro Branch",
+    category: "Supermarket",
     status: "Open",
     rating: 4.8,
-    reviews: 234,
-    address: "KN 4 Ave, Kigali",
+    reviews: 312,
+    address: "KK 15 Ave, Kicukiro, Kigali",
     distance: 0.5,
-    phone: "+250 788 123 456",
+    phone: "+250 788 100 001",
     image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg",
-    coordinates: [-1.9441, 30.0619] as [number, number],
+    coordinates: [-1.9741, 30.0781] as [number, number],
     location: "Kigali"
   },
   {
     id: 2,
-    name: "Tech Hub Electronics",
-    category: "Electronics",
+    name: "Simba — Remera Branch",
+    category: "Supermarket",
     status: "Open",
-    rating: 4.6,
-    reviews: 851,
-    address: "KG 11 Ave, Kigali",
+    rating: 4.7,
+    reviews: 204,
+    address: "KG 11 Ave, Remera, Kigali",
     distance: 1.2,
-    phone: "+250 788 234 567",
-    image: "https://images.pexels.com/photos/128756/pexels-photo-128756.jpeg",
-    coordinates: [-1.9503, 30.0584] as [number, number],
+    phone: "+250 788 100 002",
+    image: "https://images.pexels.com/photos/949223/pexels-photo-949223.jpeg",
+    coordinates: [-1.9503, 30.1084] as [number, number],
     location: "Kigali"
   },
   {
     id: 3,
-    name: "Fashion Forward Boutique",
-    category: "Fashion",
+    name: "Simba — Nyamirambo Branch",
+    category: "Supermarket",
     status: "Open",
-    rating: 4.9,
-    reviews: 312,
-    address: "KN 3 Rd, Kigali",
+    rating: 4.6,
+    reviews: 189,
+    address: "KN 3 Rd, Nyamirambo, Kigali",
     distance: 0.8,
-    phone: "+250 788 345 678",
-    image: "https://images.pexels.com/photos/1488463/pexels-photo-1488463.jpeg",
-    coordinates: [-1.9396, 30.0644] as [number, number],
+    phone: "+250 788 100 003",
+    image: "https://images.pexels.com/photos/3965545/pexels-photo-3965545.jpeg",
+    coordinates: [-1.9796, 30.0444] as [number, number],
     location: "Kigali"
   },
   {
     id: 4,
-    name: "Home & Garden Essentials",
-    category: "Home & Garden",
+    name: "Simba — Gisozi Branch",
+    category: "Supermarket",
     status: "Open",
     rating: 4.5,
-    reviews: 560,
-    address: "KG 7 Ave, Kigali",
+    reviews: 143,
+    address: "KG 7 Ave, Gisozi, Kigali",
     distance: 2.1,
-    phone: "+250 788 456 789",
-    image: "https://images.pexels.com/photos/2647713/pexels-photo-2647713.jpeg",
-    coordinates: [-1.9458, 30.0555] as [number, number],
+    phone: "+250 788 100 004",
+    image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg",
+    coordinates: [-1.9258, 30.0655] as [number, number],
     location: "Kigali"
   },
   {
     id: 5,
-    name: "Sports Arena",
-    category: "Sports",
+    name: "Simba — Nyabugogo Branch",
+    category: "Supermarket",
     status: "Open",
     rating: 4.4,
     reviews: 98,
-    address: "KG 9 Ave, Kigali",
+    address: "Nyabugogo Bus Park Area, Kigali",
     distance: 1.7,
-    phone: "+250 788 567 890",
-    image: "https://images.pexels.com/photos/841228/pexels-photo-841228.jpeg",
-    coordinates: [-1.9489, 30.0522] as [number, number],
+    phone: "+250 788 100 005",
+    image: "https://images.pexels.com/photos/949223/pexels-photo-949223.jpeg",
+    coordinates: [-1.9389, 30.0522] as [number, number],
     location: "Kigali"
   },
   {
     id: 6,
-    name: "Musanze Market",
-    category: "Grocery",
+    name: "Simba — Musanze Branch",
+    category: "Supermarket",
     status: "Open",
     rating: 4.3,
     reviews: 145,
     address: "Main St, Musanze",
     distance: 0.0,
-    phone: "+250 788 678 901",
-    image: "https://images.pexels.com/photos/949223/pexels-photo-949223.jpeg",
+    phone: "+250 788 100 006",
+    image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg",
     coordinates: [-1.5036, 29.6344] as [number, number],
     location: "Musanze"
   },
   {
     id: 7,
-    name: "Muhanga Central",
-    category: "General",
+    name: "Simba — Muhanga Branch",
+    category: "Supermarket",
     status: "Open",
     rating: 4.2,
     reviews: 203,
-    address: "Center St, Muhanga",
+    address: "Center Ave, Muhanga",
     distance: 0.0,
-    phone: "+250 788 789 012",
+    phone: "+250 788 100 007",
     image: "https://images.pexels.com/photos/3965545/pexels-photo-3965545.jpeg",
     coordinates: [-2.0833, 29.7500] as [number, number],
     location: "Muhanga"
   },
   {
     id: 8,
-    name: "Huye Plaza",
-    category: "Shopping",
+    name: "Simba — Huye Branch",
+    category: "Supermarket",
     status: "Open",
     rating: 4.6,
     reviews: 178,
     address: "Market Rd, Huye",
     distance: 0.0,
-    phone: "+250 788 890 123",
-    image: "https://images.pexels.com/photos/373892/pexels-photo-373892.jpeg",
+    phone: "+250 788 100 008",
+    image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg",
     coordinates: [-2.6000, 29.7500] as [number, number],
     location: "Huye"
   }
@@ -149,7 +149,7 @@ export default function ShopMap() {
     if (typeof window !== "undefined") {
       import("leaflet").then((L) => {
         delete (L.Icon.Default.prototype as any)._getIconUrl;
-        
+
         // Default icon
         const defaultIconInstance = L.icon({
           iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
@@ -162,16 +162,16 @@ export default function ShopMap() {
         });
         setDefaultIcon(defaultIconInstance);
 
-        // Selected icon (larger green marker)
+        // Selected icon (larger Simba orange marker)
         const selectedIconInstance = L.divIcon({
           className: 'custom-selected-marker',
           html: `<div style="
-            width: 32px;
-            height: 32px;
-            background-color: #22c55e;
+            width: 36px;
+            height: 36px;
+            background-color: #FF6600;
             border: 3px solid white;
             border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 12px rgba(255,102,0,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -192,12 +192,12 @@ export default function ShopMap() {
   const filteredShops = shops.filter((shop) => {
     const matchesLocation = selectedLocation === "All Shops" || shop.location === selectedLocation;
     const matchesSearch = shop.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         shop.category.toLowerCase().includes(searchQuery.toLowerCase());
+      shop.category.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesLocation && matchesSearch;
   });
 
-  const center: [number, number] = selectedShop 
-    ? selectedShop.coordinates 
+  const center: [number, number] = selectedShop
+    ? selectedShop.coordinates
     : [-1.9441, 30.0619]; // Default to Kigali center
 
   if (!mounted) {
@@ -239,11 +239,10 @@ export default function ShopMap() {
                     variant={selectedLocation === location ? "default" : "outline"}
                     size="sm"
                     onClick={() => setSelectedLocation(location)}
-                    className={`whitespace-nowrap ${
-                      selectedLocation === location
-                        ? "bg-success text-white hover:bg-success/90"
-                        : ""
-                    }`}
+                    className={`whitespace-nowrap ${selectedLocation === location
+                      ? "bg-[#FF6600] text-white hover:bg-[#E65C00]"
+                      : ""
+                      }`}
                   >
                     {location}
                   </Button>
@@ -272,62 +271,61 @@ export default function ShopMap() {
               {filteredShops.map((shop) => {
                 const isActive = selectedShop?.id === shop.id;
                 return (
-                <Card
-                  key={shop.id}
-                  className={`p-3 cursor-pointer transition-all hover:shadow-md ${
-                    isActive
-                      ? "ring-2 ring-success bg-success/10 border-success"
+                  <Card
+                    key={shop.id}
+                    className={`p-3 cursor-pointer transition-all hover:shadow-md ${isActive
+                      ? "ring-2 ring-[#FF6600] bg-orange-50 border-[#FF6600]"
                       : "border-border"
-                  }`}
-                  onClick={() => setSelectedShop(shop)}
-                >
-                  <div className="flex gap-3">
-                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                      <Image
-                        src={shop.image}
-                        alt={shop.name}
-                        fill
-                        className="object-cover"
-                      />
+                      }`}
+                    onClick={() => setSelectedShop(shop)}
+                  >
+                    <div className="flex gap-3">
+                      <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                        <Image
+                          src={shop.image}
+                          alt={shop.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-[13px] mb-0.5 truncate">{shop.name}</h3>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge className="bg-[#FF6600] text-white text-[10px] px-2 py-0.5 rounded-full">
+                            {shop.status}
+                          </Badge>
+                          <Badge variant="secondary" className="text-[10px] px-2 py-0.5 rounded-full">
+                            {shop.category}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-1 mb-0.5">
+                          <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                          <span className="text-[11px] font-medium">{shop.rating}</span>
+                          <span className="text-[11px] text-muted-foreground">
+                            ({shop.reviews} reviews)
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1 text-[11px] text-muted-foreground mb-0.5">
+                          <MapPin className="w-3 h-3" />
+                          <span className="truncate">{shop.address}</span>
+                        </div>
+                        <div className="text-[11px] text-muted-foreground mb-1.5">
+                          {shop.distance > 0 ? `${shop.distance} km away` : shop.location}
+                        </div>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="w-full text-[11px]"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedShop(shop);
+                          }}
+                        >
+                          Open
+                        </Button>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-[13px] mb-0.5 truncate">{shop.name}</h3>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge className="bg-success text-white text-[10px] px-2 py-0.5 rounded-full">
-                          {shop.status}
-                        </Badge>
-                        <Badge variant="secondary" className="text-[10px] px-2 py-0.5 rounded-full">
-                          {shop.category}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-1 mb-0.5">
-                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                        <span className="text-[11px] font-medium">{shop.rating}</span>
-                        <span className="text-[11px] text-muted-foreground">
-                          ({shop.reviews} reviews)
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1 text-[11px] text-muted-foreground mb-0.5">
-                        <MapPin className="w-3 h-3" />
-                        <span className="truncate">{shop.address}</span>
-                      </div>
-                      <div className="text-[11px] text-muted-foreground mb-1.5">
-                        {shop.distance > 0 ? `${shop.distance} km away` : shop.location}
-                      </div>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="w-full text-[11px]"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedShop(shop);
-                        }}
-                      >
-                        Open
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
+                  </Card>
                 );
               })}
             </div>
@@ -371,64 +369,64 @@ export default function ShopMap() {
                   {filteredShops.map((shop) => {
                     const isSelected = selectedShop?.id === shop.id;
                     return (
-                    <Marker
-                      key={shop.id}
-                      position={shop.coordinates}
-                      icon={isSelected && selectedIcon ? selectedIcon : defaultIcon}
-                      eventHandlers={{
-                        click: () => setSelectedShop(shop),
-                      }}
-                    >
-                      <Popup>
-                        <div className="p-2 min-w-[200px]">
-                          <h3 className="font-semibold text-sm mb-1">{shop.name}</h3>
-                          <Badge variant="secondary" className="text-xs mb-2">
-                            {shop.category}
-                          </Badge>
-                          <div className="flex items-center gap-1 mb-1">
-                            <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                            <span className="text-xs">{shop.rating} ({shop.reviews})</span>
+                      <Marker
+                        key={shop.id}
+                        position={shop.coordinates}
+                        icon={isSelected && selectedIcon ? selectedIcon : defaultIcon}
+                        eventHandlers={{
+                          click: () => setSelectedShop(shop),
+                        }}
+                      >
+                        <Popup>
+                          <div className="p-2 min-w-[200px]">
+                            <h3 className="font-semibold text-sm mb-1">{shop.name}</h3>
+                            <Badge variant="secondary" className="text-xs mb-2">
+                              {shop.category}
+                            </Badge>
+                            <div className="flex items-center gap-1 mb-1">
+                              <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                              <span className="text-xs">{shop.rating} ({shop.reviews})</span>
+                            </div>
+                            <div className="text-xs text-muted-foreground mb-2">
+                              <MapPin className="w-3 h-3 inline mr-1" />
+                              {shop.address}
+                            </div>
+                            <div className="text-xs text-muted-foreground mb-2">
+                              {shop.distance > 0 ? `${shop.distance} km away` : shop.location}
+                            </div>
+                            <div className="text-xs text-muted-foreground mb-3">
+                              <Phone className="w-3 h-3 inline mr-1" />
+                              {shop.phone}
+                            </div>
+                            <div className="flex gap-2">
+                              <Button
+                                size="sm"
+                                className="text-xs bg-[#FF6600] text-white hover:bg-[#E65C00] flex-1"
+                                onClick={() => {
+                                  window.open(
+                                    `https://www.google.com/maps/dir/?api=1&destination=${shop.coordinates[0]},${shop.coordinates[1]}`,
+                                    "_blank"
+                                  );
+                                }}
+                              >
+                                <Navigation className="w-3 h-3 mr-1" />
+                                Directions
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="text-xs flex-1"
+                                onClick={() => {
+                                  window.location.href = `tel:${shop.phone}`;
+                                }}
+                              >
+                                <Phone className="w-3 h-3 mr-1" />
+                                Call
+                              </Button>
+                            </div>
                           </div>
-                          <div className="text-xs text-muted-foreground mb-2">
-                            <MapPin className="w-3 h-3 inline mr-1" />
-                            {shop.address}
-                          </div>
-                          <div className="text-xs text-muted-foreground mb-2">
-                            {shop.distance > 0 ? `${shop.distance} km away` : shop.location}
-                          </div>
-                          <div className="text-xs text-muted-foreground mb-3">
-                            <Phone className="w-3 h-3 inline mr-1" />
-                            {shop.phone}
-                          </div>
-                          <div className="flex gap-2">
-                            <Button
-                              size="sm"
-                              className="text-xs bg-success text-white hover:bg-success/90 flex-1"
-                              onClick={() => {
-                                window.open(
-                                  `https://www.google.com/maps/dir/?api=1&destination=${shop.coordinates[0]},${shop.coordinates[1]}`,
-                                  "_blank"
-                                );
-                              }}
-                            >
-                              <Navigation className="w-3 h-3 mr-1" />
-                              Directions
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-xs flex-1"
-                              onClick={() => {
-                                window.location.href = `tel:${shop.phone}`;
-                              }}
-                            >
-                              <Phone className="w-3 h-3 mr-1" />
-                              Call
-                            </Button>
-                          </div>
-                        </div>
-                      </Popup>
-                    </Marker>
+                        </Popup>
+                      </Marker>
                     );
                   })}
                 </MapContainer>
@@ -452,7 +450,7 @@ export default function ShopMap() {
                           <h3 className="font-semibold text-sm truncate">
                             {selectedShop.name}
                           </h3>
-                          <Badge className="bg-success text-white text-[10px] px-2 py-0.5">
+                          <Badge className="bg-[#FF6600] text-white text-[10px] px-2 py-0.5">
                             {selectedShop.status}
                           </Badge>
                         </div>
@@ -479,7 +477,7 @@ export default function ShopMap() {
                         <div className="flex gap-2 mt-2">
                           <Button
                             size="sm"
-                            className="text-xs bg-success text-white hover:bg-success/90 flex-1"
+                            className="text-xs bg-[#FF6600] text-white hover:bg-[#E65C00] flex-1"
                             onClick={() => {
                               window.open(
                                 `https://www.google.com/maps/dir/?api=1&destination=${selectedShop.coordinates[0]},${selectedShop.coordinates[1]}`,
@@ -513,12 +511,12 @@ export default function ShopMap() {
                 <div className="font-semibold mb-2">Legend</div>
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-success"></div>
-                    <span>Shop Location</span>
+                    <div className="w-3 h-3 rounded-full bg-[#FF6600]"></div>
+                    <span>Simba Branch</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-success ring-2 ring-success ring-offset-1"></div>
-                    <span>Selected Shop</span>
+                    <div className="w-3 h-3 rounded-full bg-[#FF6600] ring-2 ring-[#FF6600] ring-offset-1"></div>
+                    <span>Selected Branch</span>
                   </div>
                 </div>
               </div>

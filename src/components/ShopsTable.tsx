@@ -1,28 +1,31 @@
 import { Card } from "./ui/card";
 import { Checkbox } from "./ui/checkbox";
 import { Input } from "./ui/input";
-import { Search, Filter, MoreVertical } from "lucide-react";
+import { Search, Filter, MoreVertical, Store } from "lucide-react";
 import { Badge } from "./ui/badge";
-import Image from "next/image";
 
-const shops = [
-  { id: 1, name: "Gacuriro Market Kigali", plan: "Premium", phone: "(555) 234-5678", status: "active" },
-  { id: 2, name: "Kimironko Market Kigali", plan: "Premium", phone: "(555) 887-6543", status: "pending" },
-  { id: 3, name: "Muhanga Market Kigali", plan: "Premium", phone: "(555) 456-7890", status: "active" },
-  { id: 4, name: "Huye Market Kigali", plan: "Premium", phone: "(555) 321-0987", status: "active" },
+const branches = [
+  { id: 1, name: "Simba — Kicukiro Branch", plan: "Premium", phone: "+250 788 100 001", status: "active" },
+  { id: 2, name: "Simba — Remera Branch", plan: "Premium", phone: "+250 788 100 002", status: "active" },
+  { id: 3, name: "Simba — Nyamirambo Branch", plan: "Premium", phone: "+250 788 100 003", status: "pending" },
+  { id: 4, name: "Simba — Gisozi Branch", plan: "Premium", phone: "+250 788 100 004", status: "active" },
+  { id: 5, name: "Simba — Nyabugogo Branch", plan: "Premium", phone: "+250 788 100 005", status: "active" },
+  { id: 6, name: "Simba — Musanze Branch", plan: "Standard", phone: "+250 788 100 006", status: "active" },
+  { id: 7, name: "Simba — Muhanga Branch", plan: "Standard", phone: "+250 788 100 007", status: "pending" },
+  { id: 8, name: "Simba — Huye Branch", plan: "Standard", phone: "+250 788 100 008", status: "active" },
 ];
 
 export function ShopsTable() {
   return (
     <Card className="p-6">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold">Recent New Shops</h3>
-        
+        <h3 className="text-lg font-semibold">All Simba Branches</h3>
+
         <div className="flex items-center gap-3">
           <div className="relative w-64">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input 
-              placeholder="Search" 
+            <Input
+              placeholder="Search branches…"
               className="pl-10 h-9 bg-muted/50 border-0"
             />
           </div>
@@ -31,7 +34,7 @@ export function ShopsTable() {
           </button>
         </div>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
@@ -40,7 +43,7 @@ export function ShopsTable() {
                 <Checkbox />
               </th>
               <th className="text-left py-3 px-4 font-medium text-sm text-muted-foreground">NO</th>
-              <th className="text-left py-3 px-4 font-medium text-sm text-muted-foreground">SHOP NAME</th>
+              <th className="text-left py-3 px-4 font-medium text-sm text-muted-foreground">BRANCH NAME</th>
               <th className="text-left py-3 px-4 font-medium text-sm text-muted-foreground">PLAN</th>
               <th className="text-left py-3 px-4 font-medium text-sm text-muted-foreground">PHONE NUMBER</th>
               <th className="text-left py-3 px-4 font-medium text-sm text-muted-foreground">STATUS</th>
@@ -48,33 +51,33 @@ export function ShopsTable() {
             </tr>
           </thead>
           <tbody>
-            {shops.map((shop) => (
-              <tr key={shop.id} className="border-b border-border hover:bg-muted/50 transition-colors">
+            {branches.map((branch) => (
+              <tr key={branch.id} className="border-b border-border hover:bg-muted/50 transition-colors">
                 <td className="py-4 px-4">
                   <Checkbox />
                 </td>
-                <td className="py-4 px-4 text-sm">{shop.id}</td>
+                <td className="py-4 px-4 text-sm text-muted-foreground">{branch.id}</td>
                 <td className="py-4 px-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-success/10 flex items-center justify-center">
-                      <span className="text-success font-semibold">
-                        <Image src='/shop.png' alt={shop.name}  width={40} height={40} className ='w-8 h-8 rounded-full object-cover'/>
-                      </span>
+                    {/* Simba brand avatar — no external PNG */}
+                    <div className="w-10 h-10 rounded-full bg-[#FF6600] flex items-center justify-center shadow-sm shadow-orange-100 shrink-0">
+                      <Store className="w-5 h-5 text-white" />
                     </div>
-                    <span className="text-sm font-medium">{shop.name}</span>
+                    <span className="text-sm font-medium">{branch.name}</span>
                   </div>
                 </td>
-                <td className="py-4 px-4 text-sm text-muted-foreground">{shop.plan}</td>
-                <td className="py-4 px-4 text-sm text-muted-foreground">{shop.phone}</td>
+                <td className="py-4 px-4 text-sm text-muted-foreground">{branch.plan}</td>
+                <td className="py-4 px-4 text-sm text-muted-foreground">{branch.phone}</td>
                 <td className="py-4 px-4">
-                  <Badge 
-                    variant={shop.status === "active" ? "default" : "secondary"}
-                    className={shop.status === "active" 
-                      ? "bg-success/10 text-success hover:bg-success/20" 
-                      : "bg-info/10 text-info hover:bg-info/20"
+                  <Badge
+                    variant={branch.status === "active" ? "default" : "secondary"}
+                    className={
+                      branch.status === "active"
+                        ? "bg-[#FF6600]/10 text-[#FF6600] hover:bg-[#FF6600]/20 border-0"
+                        : "bg-muted text-muted-foreground hover:bg-muted/80 border-0"
                     }
                   >
-                    ● {shop.status === "active" ? "Active" : "Pending"}
+                    ● {branch.status === "active" ? "Active" : "Pending"}
                   </Badge>
                 </td>
                 <td className="py-4 px-4">
