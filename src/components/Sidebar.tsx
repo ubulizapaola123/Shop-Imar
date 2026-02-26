@@ -1,7 +1,11 @@
 "use client";
 
-import { LayoutDashboard, Store, MapPin, Users, CreditCard, ChevronLeft, MoreVertical, Upload, Camera } from "lucide-react";
-import React, { useState, useRef } from "react";
+import {
+  LayoutDashboard, Store, MapPin, Users, CreditCard,
+  ChevronLeft, MoreVertical, Upload, Camera, ShoppingCart,
+  Package, BarChart3, Settings,
+} from "lucide-react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -11,47 +15,40 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/contexts/SidebarContext";
+import { useUserProfile } from "@/contexts/UserProfileContext";
 
 const menuItems = [
-  { icon: LayoutDashboard, label: "Dashboard", path: "/" },
-  { icon: Store, label: "Shops", path: "/shops" },
-  { icon: MapPin, label: "Shop Map", path: "/map" },
-  { icon: Users, label: "Users", path: "/users" },
+  { icon: LayoutDashboard, label: "Overview", path: "/" },
+  { icon: Package, label: "Inventory", path: "/inventory" },
+  { icon: ShoppingCart, label: "Orders", path: "/orders" },
+  { icon: Users, label: "Customers", path: "/customers" },
+  { icon: MapPin, label: "Branches", path: "/branches" },
+  { icon: BarChart3, label: "Reports", path: "/reports" },
   { icon: CreditCard, label: "Payments", path: "/payments" },
+  { icon: ShoppingCart, label: "Cart & Checkout", path: "/cart" },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
   const { isCollapsed, setIsCollapsed } = useSidebar();
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const { profileImage, setProfileImage, adminName, adminEmail } = useUserProfile();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result as string);
-      };
+      reader.onloadend = () => setProfileImage(reader.result as string);
       reader.readAsDataURL(file);
     }
   };
 
-  const handleUploadClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const getInitials = (name: string) => {
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2);
-  };
+  const getInitials = (name: string) =>
+    name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
 
   return (
     <aside
@@ -60,48 +57,40 @@ export function Sidebar() {
         isCollapsed ? "w-16" : "w-64"
       )}
     >
-      {/* Header Section with Shoppa Branding */}
-      <div className="p-6 border-b border-border">
+      {/* Header */}
+      <div className="p-4 border-b border-border">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-success flex items-center justify-center shrink-0">
-              <Store className="w-6 h-6 text-white" />
+            <div className="w-9 h-9 rounded-lg bg-[#FF6600] flex items-center justify-center shrink-0 shadow-md shadow-orange-200">
+              <Store className="w-5 h-5 text-white" />
             </div>
             {!isCollapsed && (
-              <span className="font-bold text-xl text-foreground">Shoppa</span>
+              <span className="font-extrabold text-lg text-foreground tracking-tight">
+                Simba
+              </span>
             )}
           </div>
-          {!isCollapsed && (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8"
-              onClick={() => setIsCollapsed(!isCollapsed)}
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-          )}
-          {isCollapsed && (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8"
-              onClick={() => setIsCollapsed(!isCollapsed)}
-            >
-              <ChevronLeft className="h-4 w-4 rotate-180" />
-            </Button>
-          )}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 shrink-0"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+          >
+            <ChevronLeft
+              className={cn("h-4 w-4 transition-transform duration-300", isCollapsed && "rotate-180")}
+            />
+          </Button>
         </div>
       </div>
 
-      {/* Main Menu Section */}
-      <div className="flex-1 overflow-y-auto p-6">
+      {/* Menu */}
+      <div className="flex-1 overflow-y-auto px-3 py-4">
         {!isCollapsed && (
-          <p className="text-xs text-muted-foreground px-3 mb-4 uppercase tracking-wider">
-            MAIN MENU
+          <p className="text-[10px] text-muted-foreground px-3 mb-3 uppercase tracking-widest font-semibold">
+            Main Menu
           </p>
         )}
-        <div className="space-y-1">
+        <div className="space-y-0.5">
           {menuItems.map((item) => {
             const isActive = pathname === item.path;
             return (
@@ -109,9 +98,9 @@ export function Sidebar() {
                 key={item.path}
                 href={item.path}
                 className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                  "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150",
                   isActive
-                    ? "bg-success text-white hover:bg-success/90"
+                    ? "bg-[#FF6600] text-white shadow-md shadow-orange-200"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 )}
                 title={isCollapsed ? item.label : undefined}
@@ -124,25 +113,25 @@ export function Sidebar() {
         </div>
       </div>
 
-      {/* User Profile Section at Bottom */}
+      {/* User Profile at Bottom */}
       <div className="p-4 border-t border-border">
         <div className="flex items-center gap-3">
           <div className="relative group">
             <Avatar className="w-10 h-10 cursor-pointer">
-              <AvatarImage src={profileImage || undefined} alt="Admin User" />
-              <AvatarFallback className="bg-success text-white font-semibold">
-                {getInitials("Admin User")}
+              <AvatarImage src={profileImage || undefined} alt={adminName} />
+              <AvatarFallback className="bg-[#FF6600] text-white font-bold">
+                {getInitials(adminName)}
               </AvatarFallback>
             </Avatar>
             {!isCollapsed && (
               <Button
                 variant="secondary"
                 size="icon"
-                className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-background border-2 border-background shadow-sm hover:bg-muted"
-                onClick={handleUploadClick}
+                className="absolute -bottom-1 -right-1 h-5 w-5 rounded-full bg-white border-2 border-white shadow-sm hover:bg-orange-50"
+                onClick={() => fileInputRef.current?.click()}
                 title="Upload photo"
               >
-                <Camera className="h-3 w-3" />
+                <Camera className="h-2.5 w-2.5 text-[#FF6600]" />
               </Button>
             )}
             <input
@@ -153,38 +142,36 @@ export function Sidebar() {
               className="hidden"
             />
           </div>
+
           {!isCollapsed && (
             <>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate text-foreground">
-                  Admin User
-                </p>
-                <p className="text-xs text-muted-foreground truncate">
-                  admin@shoppa.rw
-                </p>
+                <p className="text-sm font-semibold truncate text-foreground">{adminName}</p>
+                <p className="text-xs text-muted-foreground truncate">{adminEmail}</p>
               </div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 shrink-0"
-                  >
+                  <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0">
                     <MoreVertical className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem onClick={handleUploadClick}>
+                  <DropdownMenuItem onClick={() => fileInputRef.current?.click()} className="cursor-pointer">
                     <Upload className="mr-2 h-4 w-4" />
                     Upload Photo
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Users className="mr-2 h-4 w-4" />
-                    Profile Settings
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/settings" className="flex items-center cursor-pointer">
+                      <Settings className="mr-2 h-4 w-4" />
+                      Profile Settings
+                    </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <CreditCard className="mr-2 h-4 w-4" />
-                    Account Settings
+                  <DropdownMenuItem asChild>
+                    <Link href="/settings" className="flex items-center cursor-pointer">
+                      <CreditCard className="mr-2 h-4 w-4" />
+                      Account Settings
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
