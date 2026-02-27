@@ -53,16 +53,19 @@ const statusConfig: Record<TxStatus, { label: string; icon: React.ElementType; c
     failed: { label: "Failed", icon: XCircle, classes: "text-red-600 bg-red-100" },
 };
 
-const methodIcons: Record<string, React.ElementType> = {
-    Mastercard: CreditCard, Visa: CreditCard, "MTN MoMo": Smartphone,
-    "Airtel Money": Smartphone, Cash: Wallet,
+const methodLogos: Record<PayType, string> = {
+    Mastercard: "/master.png",
+    Visa: "/visa.png",
+    "MTN MoMo": "/mtn.png",
+    "Airtel Money": "/aitel.png",
+    Cash: "",
 };
 
 const methodColors: Record<string, string> = {
-    Mastercard: "bg-red-600",
-    Visa: "bg-blue-600",
-    "MTN MoMo": "bg-yellow-400",
-    "Airtel Money": "bg-red-500",
+    Mastercard: "bg-white",
+    Visa: "bg-white",
+    "MTN MoMo": "bg-white",
+    "Airtel Money": "bg-white",
     Cash: "bg-[#FF6600]",
 };
 
@@ -217,7 +220,6 @@ export default function PaymentsPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {methods.map((m) => {
-                            const Icon = methodIcons[m.type] ?? CreditCard;
                             const isCard = m.type === "Mastercard" || m.type === "Visa";
                             const isMasked = maskedCards.has(m.id);
                             return (
@@ -235,8 +237,12 @@ export default function PaymentsPage() {
                                     )}
                                     <div className="flex items-start justify-between mb-4">
                                         <div className="flex items-center gap-3">
-                                            <div className={cn("w-10 h-7 rounded-md flex items-center justify-center", methodColors[m.type])}>
-                                                <Icon size={16} className="text-white" />
+                                            <div className={cn("w-14 h-14 rounded-full flex items-center justify-center border border-border overflow-hidden bg-white shadow-sm shrink-0", methodColors[m.type])}>
+                                                {methodLogos[m.type] ? (
+                                                    <img src={methodLogos[m.type]} alt={m.type} className="w-10 h-10 object-contain p-1" />
+                                                ) : (
+                                                    <Wallet size={24} className="text-white" />
+                                                )}
                                             </div>
                                             <div>
                                                 <p className="font-bold text-sm">{m.type}</p>
@@ -365,7 +371,6 @@ export default function PaymentsPage() {
                                 ) : (
                                     filtered.map((t) => {
                                         const { label, icon: StatusIcon, classes } = statusConfig[t.status];
-                                        const MethodIcon = methodIcons[t.method] ?? CreditCard;
                                         return (
                                             <tr key={t.id} className="hover:bg-muted/30 transition-colors group">
                                                 <td className="py-4 px-5 font-mono font-semibold text-xs text-[#FF6600]">{t.ref}</td>
@@ -373,8 +378,12 @@ export default function PaymentsPage() {
                                                 <td className="py-4 px-5 font-medium">{t.branch}</td>
                                                 <td className="py-4 px-5">
                                                     <div className="flex items-center gap-2">
-                                                        <div className={cn("w-5 h-5 rounded flex items-center justify-center", methodColors[t.method])}>
-                                                            <MethodIcon size={11} className="text-white" />
+                                                        <div className={cn("w-10 h-10 rounded-full border border-border flex items-center justify-center overflow-hidden shrink-0", t.method === "Cash" ? "bg-[#FF6600]" : "bg-white")}>
+                                                            {methodLogos[t.method] ? (
+                                                                <img src={methodLogos[t.method]} alt={t.method} className="w-7 h-7 object-contain" />
+                                                            ) : (
+                                                                <Wallet size={16} className="text-white" />
+                                                            )}
                                                         </div>
                                                         <span className="text-xs font-medium">{t.method}</span>
                                                     </div>

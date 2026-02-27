@@ -419,15 +419,14 @@ export default function CartPage() {
 
                                 <div className="grid grid-cols-1 gap-3">
                                     {(["MTN MoMo", "Mastercard", "Visa", "Airtel Money", "Cash"] as PayMethod[]).map((m) => {
-                                        const icons: Record<PayMethod, React.ElementType> = {
-                                            "MTN MoMo": Smartphone, Mastercard: CreditCard, Visa: CreditCard,
-                                            "Airtel Money": Smartphone, Cash: Wallet,
+                                        const logos: Record<PayMethod, string> = {
+                                            "MTN MoMo": "/mtn.png", Mastercard: "/master.png", Visa: "/visa.png",
+                                            "Airtel Money": "/aitel.png", Cash: "",
                                         };
                                         const colors: Record<PayMethod, string> = {
-                                            "MTN MoMo": "bg-yellow-400", Mastercard: "bg-red-600",
-                                            Visa: "bg-blue-600", "Airtel Money": "bg-red-500", Cash: "bg-[#FF6600]",
+                                            "MTN MoMo": "bg-white", Mastercard: "bg-white",
+                                            Visa: "bg-white", "Airtel Money": "bg-white", Cash: "bg-[#FF6600]",
                                         };
-                                        const Icon = icons[m];
                                         return (
                                             <button
                                                 key={m}
@@ -437,8 +436,12 @@ export default function CartPage() {
                                                     payMethod === m ? "border-[#FF6600] bg-orange-50" : "border-border bg-white hover:border-orange-300"
                                                 )}
                                             >
-                                                <div className={cn("w-10 h-8 rounded-md flex items-center justify-center", colors[m])}>
-                                                    <Icon size={18} className="text-white" />
+                                                <div className={cn("w-12 h-9 rounded-md flex items-center justify-center border border-border overflow-hidden", colors[m])}>
+                                                    {logos[m] ? (
+                                                        <img src={logos[m]} alt={m} className="w-full h-full object-contain p-0.5" />
+                                                    ) : (
+                                                        <Wallet size={18} className="text-white" />
+                                                    )}
                                                 </div>
                                                 <div className="flex-1">
                                                     <p className="font-bold text-sm">{m}</p>

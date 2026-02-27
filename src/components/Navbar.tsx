@@ -29,6 +29,7 @@ const routeTitles: Record<string, string> = {
   "/settings": "Settings",
   "/users": "Users",
   "/map": "Branch Map",
+  
 };
 
 const notificationIcons = {
