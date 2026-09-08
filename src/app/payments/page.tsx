@@ -179,7 +179,7 @@ export default function PaymentsPage() {
 
     return (
         <AdminLayout>
-            <div className="p-8 space-y-10 max-w-7xl mx-auto">
+            <div className="w-full max-w-none space-y-10 p-4 sm:p-6 lg:p-8">
 
                 {/* ── Page Header ─────────────────────────────────────────── */}
                 <div className="flex items-start justify-between">

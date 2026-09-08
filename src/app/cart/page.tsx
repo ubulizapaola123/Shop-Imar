@@ -166,7 +166,7 @@ export default function CartPage() {
 
     return (
         <AdminLayout>
-            <div className="p-8 space-y-8 max-w-7xl mx-auto">
+            <div className="w-full max-w-none space-y-8 p-4 sm:p-6 lg:p-8">
 
                 {/* Header */}
                 <div className="flex items-start justify-between">
