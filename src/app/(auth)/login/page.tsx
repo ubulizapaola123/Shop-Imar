@@ -18,7 +18,7 @@ const Signin = () => {
     setLoading(true)
 
     try {
-      const { data, error } = await client.POST("/api/auth/login", {
+      const { data, error } = await client.POST<{ token: string }>("/api/auth/login", {
         body: {
           email,
           password

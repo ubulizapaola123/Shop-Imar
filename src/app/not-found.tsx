@@ -34,7 +34,7 @@ export default function NotFound() {
           Oops, page not found
         </h1>
         <p className="text-gray-400 text-base">
-          We looked everywhere — this page doesn't exist.
+          We looked everywhere — this page doesn&apos;t exist.
         </p>
       </div>
 

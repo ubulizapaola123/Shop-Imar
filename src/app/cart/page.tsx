@@ -413,7 +413,7 @@ export default function CartPage() {
                                     </div>
                                     <div>
                                         <h2 className="font-bold text-lg">Payment Method</h2>
-                                        <p className="text-sm text-muted-foreground">Select how you'd like to pay.</p>
+                                        <p className="text-sm text-muted-foreground">Select how you&apos;d like to pay.</p>
                                     </div>
                                 </div>
 
