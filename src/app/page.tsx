@@ -151,7 +151,7 @@ export default function Dashboard() {
           <Link href="/sell-list" className="group block">
             <Card className="p-4 border-border hover:border-emerald-400 hover:shadow-md transition-all bg-white">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Today's Sales</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Today&apos;s Sales</span>
                 <div className="w-8 h-8 rounded-lg bg-[#DCFCE7] text-[#15803D] flex items-center justify-center">
                   <TrendingUp className="w-4 h-4" />
                 </div>
@@ -170,7 +170,7 @@ export default function Dashboard() {
           <Link href="/output" className="group block">
             <Card className="p-4 border-border hover:border-red-300 hover:shadow-md transition-all bg-white">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Today's Expenses</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Today&apos;s Expenses</span>
                 <div className="w-8 h-8 rounded-lg bg-red-50 text-[#DC2626] flex items-center justify-center">
                   <TrendingDown className="w-4 h-4" />
                 </div>
@@ -388,7 +388,7 @@ export default function Dashboard() {
                 <h3 className="text-sm font-bold text-[#1F2937] flex items-center gap-2">
                   <ShoppingCart className="w-4 h-4 text-[#15803D]" /> Recent Sales
                 </h3>
-                <p className="text-xs text-muted-foreground mt-0.5">Today's transactions</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Today&apos;s transactions</p>
               </div>
               <Link href="/sell-list" className="text-xs text-[#15803D] font-bold hover:underline flex items-center gap-1">
                 View All <ArrowRight className="w-3.5 h-3.5" />

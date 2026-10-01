@@ -273,7 +273,7 @@ export default function ProfilePage() {
                 </div>
                 <div className="p-3 rounded-lg bg-[#DCFCE7]/40 border border-emerald-100 text-center">
                   <p className="text-2xl font-black text-[#166534]">{mySalesToday.length}</p>
-                  <p className="text-[11px] text-muted-foreground font-medium">Today's Sales</p>
+                  <p className="text-[11px] text-muted-foreground font-medium">Today&apos;s Sales</p>
                 </div>
                 <div className="col-span-2 p-3 rounded-lg bg-gray-50 border border-border text-center">
                   <p className="text-xl font-black text-[#1F2937]">{myTotalSales.toLocaleString()} Rwf</p>

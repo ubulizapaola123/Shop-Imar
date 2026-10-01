@@ -112,7 +112,7 @@ export function CartBreakdown() {
                                 <span className="absolute top-3 left-3 bg-[#FF6600] text-white text-[10px] px-2 py-1 rounded-full font-bold">
                                     -15%
                                 </span>
-                                <img src="/placeholder.svg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                                <img src="/placeholder.svg" alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                             </div>
                             <div className="space-y-1">
                                 <p className="text-muted-foreground text-xs uppercase tracking-tighter font-bold">{product.category}</p>
