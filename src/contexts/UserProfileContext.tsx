@@ -2,13 +2,15 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-interface Notification {
+export interface Notification {
   id: number;
   title: string;
   message: string;
-  time: string;
+  time?: string;
   read: boolean;
-  type: "order" | "payment" | "alert" | "info";
+  type: "sale" | "alert" | "credit" | "stock" | "order" | "payment" | "info";
+  actionText?: string;
+  actionLink?: string;
 }
 
 interface UserProfileContextType {
@@ -21,6 +23,7 @@ interface UserProfileContextType {
   notifications: Notification[];
   markAllRead: () => void;
   markRead: (id: number) => void;
+  dismissNotification: (id: number) => void;
   addNotification: (n: Omit<Notification, "id" | "read">) => void;
   unreadCount: number;
 }
@@ -30,43 +33,40 @@ const UserProfileContext = createContext<UserProfileContextType | undefined>(und
 const initialNotifications: Notification[] = [
   {
     id: 1,
-    title: "New Order Received",
-    message: "Branch Kicukiro placed an order for 48 items worth 1,200,000 RWF.",
-    time: "2 min ago",
+    title: "Sale completed successfully",
+    message: "7,500 Rwf • 2 items",
+    time: "Just now",
     read: false,
-    type: "order",
+    type: "sale",
+    actionLink: "/sell-list",
   },
   {
     id: 2,
-    title: "Payment Confirmed",
-    message: "MTN MoMo payment of 850,000 RWF from Branch Remera was confirmed.",
+    title: "Low stock alert",
+    message: "2 products are below minimum stock level.",
+    actionText: "View Stock",
+    actionLink: "/stock",
     time: "15 min ago",
-    read: false,
-    type: "payment",
-  },
-  {
-    id: 3,
-    title: "Low Stock Alert",
-    message: "Inyange Whole Milk 500ml stock is below the minimum threshold (12 units left).",
-    time: "1 hr ago",
     read: false,
     type: "alert",
   },
   {
-    id: 4,
-    title: "Report Ready",
-    message: "Monthly sales report for January 2026 is ready to download.",
-    time: "3 hrs ago",
+    id: 3,
+    title: "Credit received",
+    message: "5,000 Rwf from Jean Claude",
+    time: "45 min ago",
     read: true,
-    type: "info",
+    type: "credit",
+    actionLink: "/credit",
   },
   {
-    id: 5,
-    title: "New Customer Registered",
-    message: "A new wholesale customer account was created: Nyamirambo Grocers.",
-    time: "Yesterday",
+    id: 4,
+    title: "Stock updated",
+    message: "20 units of Primus Beer 500ml",
+    time: "2 hrs ago",
     read: true,
-    type: "info",
+    type: "stock",
+    actionLink: "/stock",
   },
 ];
 
@@ -85,6 +85,9 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
     setNotifications((prev) =>
       prev.map((n) => (n.id === id ? { ...n, read: true } : n))
     );
+
+  const dismissNotification = (id: number) =>
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
 
   const addNotification = (n: Omit<Notification, "id" | "read">) => {
     setNotifications((prev) => [
@@ -105,6 +108,7 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
         notifications,
         markAllRead,
         markRead,
+        dismissNotification,
         addNotification,
         unreadCount,
       }}

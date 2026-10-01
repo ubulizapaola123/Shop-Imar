@@ -1,268 +1,319 @@
 "use client";
 
-import { Search, Bell, X, ShoppingBag, CreditCard, AlertTriangle, Info, Check, CheckCheck, Camera, Upload } from "lucide-react";
+import {
+  Search,
+  Bell,
+  X,
+  AlertTriangle,
+  Info,
+  CheckCircle2,
+  Package,
+  ChevronDown,
+  User as UserIcon,
+  Settings as SettingsIcon,
+  KeyRound,
+  LogOut,
+  ShieldCheck,
+  RefreshCw,
+} from "lucide-react";
 import { Input } from "./ui/input";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useUserProfile } from "@/contexts/UserProfileContext";
-import { useRef, useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "./ui/button";
+import { useSellPoint } from "@/lib/sellpoint-store";
+import { useState, useRef, useEffect } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-const routeTitles: Record<string, string> = {
-  "/": "Dashboard Overview",
-  "/inventory": "Inventory Management",
-  "/orders": "Orders",
-  "/customers": "Customers",
-  "/branches": "Branches",
-  "/reports": "Reports & Analytics",
-  "/payments": "Payments",
-  "/cart": "Cart & Checkout",
-  "/settings": "Settings",
-  "/users": "Users",
-  "/map": "Branch Map",
-  
-};
-
-const notificationIcons = {
-  order: ShoppingBag,
-  payment: CreditCard,
-  alert: AlertTriangle,
-  info: Info,
-};
-
-const notificationColors = {
-  order: "text-blue-500 bg-blue-50",
-  payment: "text-[#FF6600] bg-orange-50",
-  alert: "text-orange-500 bg-orange-50",
-  info: "text-gray-500 bg-gray-100",
-};
-
 export function Navbar() {
-  const pathname = usePathname();
-  const {
-    profileImage,
-    setProfileImage,
-    adminName,
-    adminEmail,
-    notifications,
-    markAllRead,
-    markRead,
-    unreadCount,
-  } = useUserProfile();
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const { notifications, markRead, dismissNotification, unreadCount } = useUserProfile();
+  const { currentUser, logout, switchUserRole } = useSellPoint();
   const [notifOpen, setNotifOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const pageTitle = routeTitles[pathname] ?? "Dashboard";
+  // Keyboard shortcut: Cmd/Ctrl + K focuses search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setProfileImage(reader.result as string);
-      reader.readAsDataURL(file);
+  const getInitials = (name: string) =>
+    name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+
+  const handleGlobalSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchTerm.trim()) return;
+    const query = searchTerm.toLowerCase();
+    if (query.includes("sell") || query.includes("order")) {
+      router.push("/sell-list");
+    } else if (query.includes("stock") || query.includes("product") || query.includes("item")) {
+      router.push("/stock");
+    } else if (query.includes("credit") || query.includes("debt")) {
+      router.push("/credit");
+    } else if (query.includes("cash") || query.includes("caisse")) {
+      router.push("/caisse");
+    } else {
+      router.push("/stock");
     }
   };
 
-  const getInitials = (name: string) =>
-    name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
+  const getNotifIcon = (type: string) => {
+    switch (type) {
+      case "sale":
+        return <CheckCircle2 className="w-4 h-4 text-emerald-600" />;
+      case "alert":
+        return <AlertTriangle className="w-4 h-4 text-amber-500" />;
+      case "credit":
+        return <Info className="w-4 h-4 text-blue-500" />;
+      case "stock":
+        return <CheckCircle2 className="w-4 h-4 text-emerald-600" />;
+      default:
+        return <Info className="w-4 h-4 text-emerald-600" />;
+    }
+  };
+
+  const getNotifBg = (type: string) => {
+    switch (type) {
+      case "sale":
+      case "stock":
+        return "bg-emerald-50 text-emerald-600";
+      case "alert":
+        return "bg-amber-50 text-amber-600";
+      case "credit":
+        return "bg-blue-50 text-blue-600";
+      default:
+        return "bg-gray-100 text-gray-600";
+    }
+  };
 
   return (
-    <header className="border-b border-border bg-white sticky top-0 z-40">
-      <div className="flex items-center justify-between px-8 py-3">
-        {/* Page Title */}
-        <div>
-          <h1 className="text-lg font-bold text-foreground">{pageTitle}</h1>
-          <p className="text-xs text-muted-foreground">
-            {new Date().toLocaleDateString("en-RW", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
+    <header className="h-16 border-b border-border bg-white sticky top-0 z-40 px-6 flex items-center justify-between">
+      {/* ── Search Bar (Left / Center) ── */}
+      <form onSubmit={handleGlobalSearch} className="relative w-72 sm:w-96">
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+        <Input
+          ref={searchInputRef}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search product, client, bill..."
+          className="pl-9 pr-12 h-9 bg-[#F9FAFB] border border-gray-200 rounded-lg text-xs placeholder:text-gray-400 focus-visible:ring-1 focus-visible:ring-[#15803D] focus-visible:bg-white transition-all shadow-none"
+        />
+        <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">
+          <kbd className="px-1.5 py-0.5 text-[10px] font-semibold text-gray-400 bg-gray-100 border border-gray-200 rounded tracking-widest">
+            ⌘K
+          </kbd>
         </div>
+      </form>
 
-        <div className="flex items-center gap-4">
-          {/* Search */}
-          <div className="relative w-72">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              placeholder="Search orders, products, branches…"
-              className="pl-10 bg-muted/40 border-0 rounded-full text-sm focus-visible:ring-1 focus-visible:ring-orange-400"
-            />
-          </div>
+      {/* ── Right Actions ── */}
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={() => router.refresh()}
+          className="rounded-lg border border-gray-200 p-2 text-gray-500 transition-colors hover:bg-[#DCFCE7] hover:text-[#166534]"
+          aria-label="Refresh dashboard"
+          title="Refresh dashboard"
+        >
+          <RefreshCw className="h-4 w-4" />
+        </button>
+        {/* Notification Bell */}
+        <div className="relative">
+          <button
+            onClick={() => setNotifOpen(!notifOpen)}
+            className={cn(
+              "relative p-2 rounded-lg transition-colors text-gray-500 hover:text-[#166534] hover:bg-[#DCFCE7]/50",
+              notifOpen && "bg-[#DCFCE7]/60 text-[#166534]"
+            )}
+            aria-label="Notifications"
+            title="Notifications"
+          >
+            <Bell className="w-4 h-4" />
+            {unreadCount > 0 && (
+              <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-[#EF4444] text-white text-[9px] font-bold rounded-full flex items-center justify-center leading-none">
+                {unreadCount}
+              </span>
+            )}
+          </button>
 
-          {/* Notification Bell */}
-          <div className="relative">
-            <button
-              onClick={() => setNotifOpen(!notifOpen)}
-              className="relative p-2 hover:bg-muted rounded-full transition-colors"
-              aria-label="Notifications"
-            >
-              <Bell className="w-5 h-5 text-muted-foreground" />
-              {unreadCount > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 bg-[#FF6600] text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">
-                  {unreadCount > 9 ? "9+" : unreadCount}
-                </span>
-              )}
-            </button>
-
-            {/* Notification Panel */}
-            {notifOpen && (
-              <>
-                {/* Backdrop */}
-                <div
-                  className="fixed inset-0 z-40"
-                  onClick={() => setNotifOpen(false)}
-                />
-                <div className="absolute right-0 top-full mt-2 w-96 bg-white rounded-2xl shadow-2xl border border-border z-50 overflow-hidden">
-                  {/* Header */}
-                  <div className="flex items-center justify-between px-5 py-4 border-b border-border">
-                    <div>
-                      <h3 className="font-bold text-sm">Notifications</h3>
-                      {unreadCount > 0 && (
-                        <p className="text-xs text-muted-foreground">
-                          {unreadCount} unread
-                        </p>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {unreadCount > 0 && (
-                        <button
-                          onClick={markAllRead}
-                          className="text-xs text-[#FF6600] font-semibold hover:underline flex items-center gap-1"
-                        >
-                          <CheckCheck size={13} /> Mark all read
-                        </button>
-                      )}
-                      <button
-                        onClick={() => setNotifOpen(false)}
-                        className="p-1 hover:bg-muted rounded-full"
+          {/* Floating Notification Panel */}
+          {notifOpen && (
+            <>
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setNotifOpen(false)}
+              />
+              <div className="absolute right-0 top-full mt-2 w-[340px] sm:w-[360px] bg-white rounded-xl shadow-xl border border-border z-50 p-2 space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-150">
+                {notifications.length === 0 ? (
+                  <div className="py-8 text-center text-muted-foreground text-xs">
+                    No new notifications
+                  </div>
+                ) : (
+                  notifications.map((notif) => (
+                    <div
+                      key={notif.id}
+                      onClick={() => markRead(notif.id)}
+                      className="group relative flex items-start gap-3 p-3 rounded-lg border border-gray-100 hover:border-gray-200 hover:bg-gray-50/60 transition-all text-left cursor-pointer"
+                    >
+                      {/* Icon */}
+                      <div
+                        className={cn(
+                          "w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5",
+                          getNotifBg(notif.type)
+                        )}
                       >
-                        <X size={15} />
+                        {getNotifIcon(notif.type)}
+                      </div>
+
+                      {/* Text */}
+                      <div className="flex-1 min-w-0 pr-4">
+                        <p className="text-xs font-bold text-gray-900 leading-snug">
+                          {notif.title}
+                        </p>
+                        <p className="text-[11px] text-gray-500 mt-0.5 leading-tight">
+                          {notif.message}
+                        </p>
+                        {notif.actionLink && notif.actionText && (
+                          <Link
+                            href={notif.actionLink}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setNotifOpen(false);
+                            }}
+                            className="inline-block text-[11px] font-semibold text-[#15803D] hover:underline mt-1"
+                          >
+                            {notif.actionText}
+                          </Link>
+                        )}
+                      </div>
+
+                      {/* Close / Dismiss 'x' button */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          dismissNotification(notif.id);
+                        }}
+                        className="absolute top-2.5 right-2 text-gray-400 hover:text-gray-600 p-0.5 rounded transition-colors"
+                        title="Dismiss"
+                      >
+                        <X className="w-3.5 h-3.5" />
                       </button>
                     </div>
-                  </div>
-
-                  {/* List */}
-                  <div className="divide-y divide-border max-h-[420px] overflow-y-auto">
-                    {notifications.length === 0 ? (
-                      <div className="py-12 text-center text-muted-foreground text-sm">
-                        No notifications
-                      </div>
-                    ) : (
-                      notifications.map((notif) => {
-                        const Icon = notificationIcons[notif.type];
-                        const colorClass = notificationColors[notif.type];
-                        return (
-                          <button
-                            key={notif.id}
-                            onClick={() => markRead(notif.id)}
-                            className={cn(
-                              "w-full text-left px-5 py-4 flex gap-3 hover:bg-muted/40 transition-colors",
-                              !notif.read && "bg-orange-50/60"
-                            )}
-                          >
-                            <div
-                              className={cn(
-                                "w-9 h-9 rounded-full flex items-center justify-center shrink-0 mt-0.5",
-                                colorClass
-                              )}
-                            >
-                              <Icon size={16} />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p
-                                className={cn(
-                                  "text-sm font-semibold truncate",
-                                  notif.read && "font-medium text-muted-foreground"
-                                )}
-                              >
-                                {notif.title}
-                              </p>
-                              <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
-                                {notif.message}
-                              </p>
-                              <p className="text-[10px] text-muted-foreground mt-1 font-medium">
-                                {notif.time}
-                              </p>
-                            </div>
-                            {!notif.read && (
-                              <div className="w-2 h-2 rounded-full bg-[#FF6600] shrink-0 mt-2" />
-                            )}
-                          </button>
-                        );
-                      })
-                    )}
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Profile Avatar with Upload */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="relative group" aria-label="Profile menu">
-                <Avatar className="w-9 h-9 cursor-pointer ring-2 ring-transparent group-hover:ring-orange-400 transition-all">
-                  <AvatarImage src={profileImage || undefined} alt={adminName} />
-                  <AvatarFallback className="bg-[#FF6600] text-white font-bold text-sm">
-                    {getInitials(adminName)}
-                  </AvatarFallback>
-                </Avatar>
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#FF6600] border-2 border-white rounded-full" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <div className="px-3 py-3 border-b border-border">
-                <p className="font-semibold text-sm">{adminName}</p>
-                <p className="text-xs text-muted-foreground">{adminEmail}</p>
+                  ))
+                )}
               </div>
-              <DropdownMenuItem onClick={() => fileInputRef.current?.click()} className="cursor-pointer mt-1">
-                <Camera className="mr-2 h-4 w-4 text-[#FF6600]" />
-                <span>Change Profile Photo</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => fileInputRef.current?.click()} className="cursor-pointer">
-                <Upload className="mr-2 h-4 w-4" />
-                <span>Upload New Photo</span>
-              </DropdownMenuItem>
-              {profileImage && (
-                <DropdownMenuItem
-                  onClick={() => setProfileImage(null)}
-                  className="cursor-pointer text-destructive focus:text-destructive"
-                >
-                  <X className="mr-2 h-4 w-4" />
-                  Remove Photo
-                </DropdownMenuItem>
-              )}
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link href="/settings" className="cursor-pointer">
-                  Profile Settings
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          {/* Hidden file input */}
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="hidden"
-          />
+            </>
+          )}
         </div>
+
+        {/* User Pill with Dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full hover:bg-gray-100 transition-colors focus:outline-none select-none">
+              <div className="w-7 h-7 rounded-full bg-[#15803D] text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
+                {currentUser ? getInitials(currentUser.names) : "AU"}
+              </div>
+              <span className="text-xs font-semibold text-gray-700 hidden sm:inline">
+                {currentUser?.names || "Admin User"}
+              </span>
+              <ChevronDown className="w-3 h-3 text-gray-400" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <div className="px-3 py-2 border-b border-border">
+              <p className="font-bold text-xs text-[#1F2937]">{currentUser?.names || "Admin User"}</p>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className="text-[10px] px-1.5 py-0.2 bg-[#DCFCE7] text-[#166534] font-semibold rounded">
+                  {currentUser?.role || "Admin"}
+                </span>
+                <span className="text-[10px] text-muted-foreground">
+                  @{currentUser?.username || "admin"}
+                </span>
+              </div>
+            </div>
+
+            <DropdownMenuItem asChild>
+              <Link href="/profile" className="cursor-pointer text-xs flex items-center gap-2">
+                <UserIcon className="w-3.5 h-3.5 text-gray-500" />
+                <span>My Profile</span>
+              </Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem asChild>
+              <Link href="/settings" className="cursor-pointer text-xs flex items-center gap-2">
+                <SettingsIcon className="w-3.5 h-3.5 text-gray-500" />
+                <span>Settings</span>
+              </Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem asChild>
+              <Link href="/change-password" className="cursor-pointer text-xs flex items-center gap-2">
+                <KeyRound className="w-3.5 h-3.5 text-gray-500" />
+                <span>Change Password</span>
+              </Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            {/* Switch Role option in profile menu */}
+            <DropdownMenuLabel className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">
+              Switch Role
+            </DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => switchUserRole("Admin")}
+              className="cursor-pointer text-xs flex items-center justify-between"
+            >
+              <span>Admin</span>
+              {currentUser?.role === "Admin" && <span className="text-[10px] text-[#15803D] font-bold">Active</span>}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => switchUserRole("Manager")}
+              className="cursor-pointer text-xs flex items-center justify-between"
+            >
+              <span>Manager</span>
+              {currentUser?.role === "Manager" && <span className="text-[10px] text-[#15803D] font-bold">Active</span>}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => switchUserRole("Cashier")}
+              className="cursor-pointer text-xs flex items-center justify-between"
+            >
+              <span>Cashier</span>
+              {currentUser?.role === "Cashier" && <span className="text-[10px] text-[#15803D] font-bold">Active</span>}
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              onClick={() => {
+                logout();
+                router.push("/change-password");
+              }}
+              className="cursor-pointer text-xs text-destructive focus:text-destructive flex items-center gap-2"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span>Log Out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </header>
   );

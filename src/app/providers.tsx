@@ -8,6 +8,8 @@ import { useState } from "react";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 import { UserProfileProvider } from "@/contexts/UserProfileContext";
 
+import { SellPointProvider } from "@/lib/sellpoint-store";
+
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
     () =>
@@ -25,9 +27,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <TooltipProvider>
         <SidebarProvider>
           <UserProfileProvider>
-            <Toaster />
-            <Sonner />
-            {children}
+            <SellPointProvider>
+              <Toaster />
+              <Sonner />
+              {children}
+            </SellPointProvider>
           </UserProfileProvider>
         </SidebarProvider>
       </TooltipProvider>

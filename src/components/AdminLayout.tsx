@@ -3,7 +3,6 @@
 import { ReactNode } from "react";
 import { Sidebar } from "./Sidebar";
 import { Navbar } from "./Navbar";
-import { DashboardSubHeader } from "./DashboardSubHeader";
 import { useSidebar } from "@/contexts/SidebarContext";
 import { cn } from "@/lib/utils";
 
@@ -21,13 +20,12 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       <div
         className={cn(
           "flex flex-col bg-white min-h-screen transition-all duration-300",
-          isCollapsed ? "ml-16" : "ml-64"
+          isCollapsed ? "ml-16" : "ml-72"
         )}
       >
         <Navbar />
-        <DashboardSubHeader />
 
-        <main className="flex-1">
+        <main className="flex-1 bg-white">
           {children}
         </main>
       </div>

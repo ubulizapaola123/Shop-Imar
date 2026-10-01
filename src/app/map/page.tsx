@@ -1,13 +1,13 @@
-import { AdminLayout } from "@/components/AdminLayout";
-import ShopMap from "@/components/ShopMap";
+"use client";
 
-export default function MapsPage() {
-  return (
-    <AdminLayout>
-      <div className="p-8">
-        <ShopMap />
-      </div>
-    </AdminLayout>
-  );
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+export default function MapPage() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/");
+  }, [router]);
+
+  return null;
 }
-
